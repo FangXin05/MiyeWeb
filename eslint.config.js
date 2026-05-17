@@ -1,0 +1,45 @@
+import { defineConfig, globalIgnores } from 'eslint/config'
+import globals from 'globals'
+import js from '@eslint/js'
+import pluginVue from 'eslint-plugin-vue'
+import pluginOxlint from 'eslint-plugin-oxlint'
+import skipFormatting from 'eslint-config-prettier/flat'
+
+export default defineConfig([
+  {
+    name: 'app/files-to-lint',
+    files: ['**/*.{vue,js,mjs,jsx}'],
+  },
+
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ElMessage: 'readonly',
+        ElMessageBox: 'readonly',
+        ElLoading: 'readonly',
+      },
+    },
+  },
+
+  js.configs.recommended,
+  ...pluginVue.configs['flat/essential'],
+
+  ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+
+  skipFormatting,
+  {
+    rules: {
+      // 强制单引号
+      quotes: ['error', 'single'],
+
+      // 禁止 console.log（生产环境）
+      'no-console': ['warn'],
+
+      // 禁止未使用的变量
+      'no-unused-vars': 'error',
+    },
+  },
+])
