@@ -49,7 +49,9 @@
     <el-container>
       <el-header>
         <div>
-          侦探：<strong>{{ userStore.user.nickname || userStore.user.username }}</strong>
+          侦探：<strong>
+            {{ userStore.user.nickname || userStore.user.username }}
+          </strong>
         </div>
         <el-dropdown placement="bottom-end" @command="handleCommand">
           <span class="el-dropdown__box">
