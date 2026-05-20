@@ -6,4 +6,3 @@ pinia.use(persist)
 export default pinia
 
 export * from './modules/User'
-export * from './modules/counter'
